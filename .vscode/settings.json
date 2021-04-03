@@ -1,12 +1,11 @@
-{
-  
+{  
     "editor.codeActionsOnSave": {
       "source.fixAll": true,
       "source.organizeImports": true
     },
    
     "prettier.eslintIntegration": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "javascript.format.enable": false,
     "[javascript]": {
       "editor.defaultFormatter": "dbaeumer.vscode-eslint"
