@@ -1,12 +1,12 @@
-{
+module.exports = {
     "env": {
         "browser": true,
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb"
+       
+        "plugin:react-hooks/recommended",
+        "standard"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -21,11 +21,6 @@
         "@typescript-eslint",
         "react-hooks"
     ],
-    "settings": {
-      "import/resolver": {
-        "alias": {"map":[["src","./src"]],"extensions": [".ts", ".js", ".jsx", ".json"]}
-      }
-    },
     "rules": {
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
@@ -53,7 +48,10 @@
         "@typescript-eslint/array-type": "error",
         "@typescript-eslint/ban-types": "error",
         "@typescript-eslint/no-array-constructor": "error",
-        "@typescript-eslint/naming-convention": "error",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          { "selector": "variable", "format": ["camelCase", "UPPER_CASE","PascalCase"] }
+        ],
         "@typescript-eslint/no-use-before-define": "error",
         "getter-return": "off",
         "no-dupe-args": "off",
@@ -83,9 +81,7 @@
         "require-await": "error",
         "generator-star-spacing": ["warn", "after"],
         "yield-star-spacing": ["warn", "after"],
-        "linebreak-style": "off",
-        "spaced-comment": ["warn", "always", { "markers": ["/"] }],
-        "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+        "spaced-comment": ["warn", "always", { "markers": ["/"] }] ,
+        "semi": ["error", "always", { "omitLastInOneLineBlock": true }] ,
     }
-}
-
+};

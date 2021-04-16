@@ -25,5 +25,5 @@
     "src",
     "@types"
   ],
-  "exclude": [ "./tsconfig.paths.json"]
+  "exclude": []
 }
