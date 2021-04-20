@@ -1,15 +1,16 @@
 import React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { Roles } from './RouterTypes';
+import { Route } from 'react-router-dom';
 
-interface PrivateRouteProps extends RouteProps {
-  authority?: Roles[];
+interface PrivateRouteProps {
+  key: string;
+  [key: string]: any;
 }
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ authority, ...otherProps }) => (otherProps.path !== '/login' ? (
-  <Redirect to="/login" />
-) : (
-  <Route {...otherProps} />
-));
+/**
+ * 路由权限的判断
+ * @returns 没有权限就返回登录页面，有权限就返回相应的组件
+ */
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ key, ...otherProps }) => {
+  return <Route {...otherProps} key={key} />;
+};
 
 export default PrivateRoute;

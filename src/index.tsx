@@ -5,7 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import store from 'src/constants/store';
-import App from './App';
+import router from 'src/routers/Router';
+import RouteLayout from 'src/routers/RouterLayout';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -14,12 +15,13 @@ ReactDOM.render(
     <ConfigProvider locale={zhCN}>
       <StoreProvider store={store}>
         <Router>
-          <App />
+          <RouteLayout router={router || []} />
         </Router>
       </StoreProvider>
     </ConfigProvider>
   </React.StrictMode>,
-  document.getElementById('root'));
+  document.getElementById('root'),
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

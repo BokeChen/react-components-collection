@@ -10,8 +10,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = () => {
   return (
     <Layout className={styles.wrap}>
       <Header>Header</Header>
-      <Layout>
-        <Sider>Sider</Sider>
+      <Layout className={styles.content}>
+        <Sider width={200}>Sider</Sider>
         <Content>Content</Content>
       </Layout>
     </Layout>

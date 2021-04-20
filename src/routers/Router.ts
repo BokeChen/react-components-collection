@@ -1,5 +1,19 @@
-import { RouteNode } from './RouterTypes';
-// ! 始终保证准确路径在前
+import BasicLayout from 'src/layouts/BasicLayout';
+import { RouteNode } from 'src/layouts/layoutsTypes';
+import Home from 'src/pages/Home';
 const router: RouteNode[] = [
-  { path: '/login', name: '登录', component: undefined }];
+  {
+    path: '/home',
+    name: '主页Layout',
+    component: BasicLayout,
+    layout: true,
+    routes: [
+      {
+        path: '/home',
+        name: '主页',
+        component: Home,
+      },
+    ],
+  },
+];
 export default router;

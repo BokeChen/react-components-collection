@@ -3,7 +3,7 @@ import { Middleware } from 'redux';
 import logger from 'redux-logger';
 import { storeModel } from 'src/models';
 
-const middlewares:Middleware[] = [];
+const middlewares: Middleware[] = [];
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger);
 }
