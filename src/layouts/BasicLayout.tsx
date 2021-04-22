@@ -9,14 +9,12 @@ import { RouteNode } from 'src/routers/RouterTypes';
 import styles from './BasicLayout.module.scss';
 interface BasicLayoutProps {
   router: RouteNode[]; // 读取router 里面有layout 里面的routes 路由
-  [key: string]: any;
 }
 const { Header, Content } = Layout;
 const { SubMenu } = Menu;
 const MenuItem = Menu.Item;
 const BasicLayout: React.FC<BasicLayoutProps> = ({ router }) => {
   const { userInfo } = useStoreState((state) => state.globalModel);
-  // @ts-ignore
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -37,9 +35,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ router }) => {
             // if (param.key && param.key === 'invalid_route') return;
             const item = router.find((m) => m.path === param.key && m.redirect);
             if (item) {
-              // history.push(item.redirect!);
+              history.push(item.redirect!);
             } else {
-              // history.push(param.key + '');
+              history.push(param.key + '');
             }
           }}
         >
