@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { Redirect, Switch } from 'react-router-dom';
-import { RouteNode } from 'src/layouts/layoutsTypes';
+import { RouteNode } from 'src/layouts/LayoutsTypes';
 import PrivateRoute from 'src/routers/PrivateRoute';
 
 interface RouteLayoutProps {
@@ -19,7 +19,7 @@ const RouteLayout: React.FC<RouteLayoutProps> = ({ router }) => {
               // 如果只是layout 没有子路由直接生成layout组件
               if (layout && !_.isEmpty(routes) && component) {
                 return React.createElement(component, {
-                  router: routes,
+                  router: routes, // 传入layout下面的routes 数据
                   ...otherProps,
                   ...props,
                 });
