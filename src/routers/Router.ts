@@ -15,21 +15,8 @@ const router: RouteNode[] = [
       {
         path: '/home',
         name: '主页',
+        authority: [Roles.Guest],
         component: Home,
-      },
-      {
-        path: '/area-archives',
-        name: '测温趋势',
-        authority: [Roles.Admin, Roles.Guest],
-        redirect: '/area-archives/list',
-        routes: [
-          {
-            path: '/area-archives/list',
-            name: '区域档案',
-            authority: [Roles.Admin, Roles.Guest],
-            component: Home,
-          },
-        ],
       },
     ],
   },

@@ -1,7 +1,7 @@
+import _ from 'lodash';
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useStoreState } from 'src/hooks/easyPeasyApi';
-
 interface PrivateRouteProps {
   key: string;
   [key: string]: any;
@@ -12,10 +12,13 @@ interface PrivateRouteProps {
  */
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ key, authority = [], ...otherProps }) => {
   const { userInfo } = useStoreState((state) => state.globalModel);
-  return !authority.includes(userInfo.role) && otherProps.path !== '/login' ? (
-    <Redirect to="/login" />
-  ) : (
+  // 没定义权限 或者 当前用户用户这个模块的权限 和 路由是 login 组件时， 直接渲染组件
+  return _.isEmpty(authority) ||
+    authority.includes(userInfo.role) ||
+    otherProps.path == '/login' ? (
     <Route {...otherProps} key={key} />
+  ) : (
+    <Redirect to="/login" />
   );
 };
 

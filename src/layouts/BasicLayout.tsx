@@ -1,3 +1,4 @@
+import { CaretDownFilled } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import _ from 'lodash';
 import React from 'react';
@@ -11,11 +12,11 @@ interface BasicLayoutProps {
   [key: string]: any;
 }
 const { Header, Content } = Layout;
-// const { SubMenu } = Menu;
-// const MenuItem = Menu.Item;
+const { SubMenu } = Menu;
+const MenuItem = Menu.Item;
 const BasicLayout: React.FC<BasicLayoutProps> = ({ router }) => {
-  // @ts-ignore
   const { userInfo } = useStoreState((state) => state.globalModel);
+  // @ts-ignore
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
@@ -36,12 +37,46 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ router }) => {
             // if (param.key && param.key === 'invalid_route') return;
             const item = router.find((m) => m.path === param.key && m.redirect);
             if (item) {
-              history.push(item.redirect!);
+              // history.push(item.redirect!);
             } else {
-              history.push(param.key + '');
+              // history.push(param.key + '');
             }
           }}
-        />
+        >
+          {router
+            .filter((m) => !m.hideInMenu)
+            .map((m) => {
+              const condition =
+                (m.routes &&
+                  m.routes?.filter((v) => m.authList && m.authList?.includes(userInfo.role))
+                    .length) ||
+                0;
+              if (m.hasSubMenu && !_.isEmpty(m.routes) && m.routes && condition >= 2) {
+                // 只有一个菜单时，不显示下拉菜单选项
+                return (
+                  <SubMenu
+                    key={m.path}
+                    title={
+                      <span>
+                        {/* {m.icon && React.createElement(m.icon)} */}
+                        <span>{m.name}</span>
+                        <CaretDownFilled style={{ fontSize: 14, marginLeft: 7 }} />
+                      </span>
+                    }
+                  >
+                    {m.routes?.map((sm) =>
+                      sm.authList && sm.authList?.includes(userInfo.role) ? (
+                        <MenuItem key={sm.path}>{sm.name}</MenuItem>
+                      ) : (
+                        ''
+                      ),
+                    )}
+                  </SubMenu>
+                );
+              }
+              return <MenuItem key={m.path}>{m.name}</MenuItem>;
+            })}
+        </Menu>
       </Header>
       <Layout className={styles.content}>
         <Content>
@@ -58,7 +93,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ router }) => {
                 ...otherProps
               } = m;
               // handle layout
-              if (layout && component && _.isEmpty(routes)) {
+              if (layout && component && !_.isEmpty(routes)) {
                 return (
                   <PrivateRoute
                     key={path}
@@ -70,7 +105,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ router }) => {
                   />
                 );
               }
-              if (layout && routes && !_.isEmpty(routes)) {
+              if (routes && !_.isEmpty(routes)) {
                 return routes.map((n) => <PrivateRoute key={n.path} {...n} />);
               }
 
